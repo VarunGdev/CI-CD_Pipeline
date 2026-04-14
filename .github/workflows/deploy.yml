@@ -77,6 +77,6 @@ jobs:
 
            aws ecs update-service \
            --cluster my-cluster \
-           --service app-service-lc2cue16 \
+           --service app-service-e1bes405 \
            --task-definition "$NEW_REVISION" \
            --region ap-south-1
