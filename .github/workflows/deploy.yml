@@ -67,15 +67,11 @@ jobs:
       # 9. Deploy latest revision to ECS
       - name: Deploy to ECS
         run: |
-          NEW_REVISION=$(aws ecs list-task-definitions \
-            --family-prefix app \
-            --sort DESC \
-            --max-items 1 \
-            --query 'taskDefinitionArns[0]' \
-            --output text)
+          NEW_REVISION=$(aws ecs list-task-definitions --family-prefix app --sort DESC --max-items 1 --query 'taskDefinitionArns[0]' --output text)
+           echo "Latest revision: $NEW_REVISION"
 
           aws ecs update-service \
-            --cluster my-cluster \
-            --service app-service-lc2cue16 \
-            --task-definition $NEW_REVISION \
-            --region ap-south-1
+          --cluster my-cluster \
+          --service app-service-lc2cue16 \
+          --task-definition $NEW_REVISION \
+          --region ap-south-1
