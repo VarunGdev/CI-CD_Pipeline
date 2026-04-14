@@ -1,6 +1,6 @@
 const http = require('http');
 const server = http.createServer((req,res) => {
-    res.end("CI/CD is working");
+    res.end("CI/CD ");
 });
 
 server.listen(3000);
