@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +31,13 @@ jobs:
 
       - name: Push image
         run: docker push 084928383265.dkr.ecr.ap-south-1.amazonaws.com/my-app:latest
+
+      - name: Deploy to ECS
+        run: |
+          aws ecs update-service \
+            --cluster my-cluster \
+            --service app-service-lc2cue16 \
+            --force-new-deployment \
+            --region ap-south-1
+
+          
