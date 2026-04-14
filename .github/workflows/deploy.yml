@@ -65,13 +65,17 @@ jobs:
             --cli-input-json file://new-task-def.json
 
       # 9. Deploy latest revision to ECS
-      -name: Deploy to ECS
-       run: |
-         NEW_REVISION=$(aws ecs list-task-definitions --family-prefix app --sort DESC --query 'taskDefinitionArns[0]' --output text | head -n 1)
-     
-         echo "Latest revision: $NEW_REVISION"
-     
-         aws ecs update-service \
+      - name: Deploy to ECS
+        run: |
+          NEW_REVISION=$(aws ecs list-task-definitions \
+           --family-prefix app \
+           --sort DESC \
+           --query 'taskDefinitionArns[0]' \
+           --output text | head -n 1)
+
+           echo "Latest revision: $NEW_REVISION"
+
+           aws ecs update-service \
            --cluster my-cluster \
            --service app-service-e1bes405 \
            --task-definition "$NEW_REVISION" \
